@@ -46,8 +46,7 @@ const FormSendler = () => {
                             borderBottomColor: '#ff4081',
                             marginLeft: '10px',
                         },
-                    }}
-                />
+                    }}/>
                 <Button
                     variant="outlined"
                     sx={{
@@ -60,8 +59,7 @@ const FormSendler = () => {
                         borderRadius: '4px',
                         padding: '10px 20px',
                         margin: '5px 0 0 10px',
-                    }}
-                >
+                    }}>
                     Send it!
                 </Button>
             </form>
