@@ -1,4 +1,4 @@
-import {Button, TextField} from "@mui/material";
+import {Alert, Button, TextField} from "@mui/material";
 import React, { useState} from "react";
 interface Props{
     username: string;
@@ -7,6 +7,7 @@ interface Props{
 const FormSendler = () => {
 
     const [textToPost, setTextToPost] = useState<Props>({ username: '', message: '' });
+    const [showAlert, setShowAlert] = useState(false);
     const url = 'http://146.185.154.90:8000/messages';
 
     const followChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,6 +27,13 @@ const FormSendler = () => {
             method: 'post',
             body: data,
         });
+        if(textToPost.message.length !== 0 && textToPost.username.length !== 0){
+            setShowAlert(true);
+            setTimeout(() => {
+                setShowAlert(false);
+            }, 3000);
+        }
+
     };
 
     return (
@@ -96,6 +104,7 @@ const FormSendler = () => {
                     }}>
                     Send it!
                 </Button>
+                {showAlert && <Alert severity="success" style={{backgroundColor: '#ff4081', color:'white',marginTop:'10px' , position: 'absolute' , width:'415px'}}>Message successful sent!</Alert>}
             </form>
         </div>
     );
