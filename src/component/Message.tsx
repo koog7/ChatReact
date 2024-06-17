@@ -12,7 +12,9 @@ interface Props{
 const Message = () => {
 
     const [dataMessages, setDataMessages] = useState<Props[]>([]);
+    const [date, setDate] = useState('');
     const url = 'http://146.185.154.90:8000/messages';
+    const lastMsg = `http://146.185.154.90:8000/messages?datetime=${date}`;
 
     useEffect(() => {
         const fetchData = async () => {
@@ -20,20 +22,33 @@ const Message = () => {
             if (response.ok) {
                 const item = await response.json() as Props[];
                 const reverseItems = item.reverse();
+                const lastItem = item[item.length - 1];
+                const date = lastItem.datetime;
                 setDataMessages(reverseItems);
-                console.log(item)
-                console.log(dataMessages)
+                setDate(date)
             }
+
+            setInterval(() => {
+                const DateFetch = async () => {
+                    const response = await fetch(lastMsg);
+                    if (response.ok) {
+                        const item = await response.json() as Props[];
+                        const reverseItems = item.reverse();
+                        setDataMessages(reverseItems);
+                    }
+                }
+                void DateFetch();
+            }, 3000);
         };
 
         void fetchData();
-    }, []);
 
+    }, []);
 
     return (
         <div className={'card-block'} style={{height: '500px' , overflow: 'auto', width: '380px'}}>
             {dataMessages.map((item) => (
-                <Card sx={{ maxWidth: 345, backgroundColor: '#242424', color: 'white', borderRadius: '10px', marginTop: '20px'}}>
+                <Card key={item._id} sx={{ maxWidth: 345, backgroundColor: '#242424', color: 'white', borderRadius: '10px', marginTop: '20px'}}>
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="div" sx={{ color: '#ff4081' }}>
                             {item.author}
