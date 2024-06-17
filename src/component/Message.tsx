@@ -46,7 +46,7 @@ const Message = () => {
     }, []);
 
     return (
-        <div className={'card-block'} style={{height: '500px' , overflow: 'auto', width: '380px'}}>
+        <div className={'card-block'} style={{height: '500px' , overflow: 'auto', width: '380px', marginTop: '60px'}}>
             {dataMessages.map((item) => (
                 <Card key={item._id} sx={{ maxWidth: 345, backgroundColor: '#242424', color: 'white', borderRadius: '10px', marginTop: '20px'}}>
                     <CardContent>
@@ -59,7 +59,7 @@ const Message = () => {
                     </CardContent>
                     <CardActions>
                         <Typography gutterBottom component="div" sx={{ color: '#ff4081', marginLeft: '10px' }}>
-                            {item.datetime}
+                            {item.datetime.replace(/T/, ' ').replace(/\.\d+Z$/, '')}
                         </Typography>
                     </CardActions>
                 </Card>
