@@ -25,7 +25,7 @@ const Message = () => {
                 const lastItem = item[item.length - 1];
                 const date = lastItem.datetime;
                 setDataMessages(reverseItems);
-                setDate(date)
+                setDate(date);
             }
 
             setInterval(() => {
@@ -36,7 +36,7 @@ const Message = () => {
                         const reverseItems = item.reverse();
                         setDataMessages(reverseItems);
                     }
-                }
+                };
                 void DateFetch();
             }, 3000);
         };
