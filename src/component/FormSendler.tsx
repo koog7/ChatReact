@@ -17,21 +17,22 @@ const FormSendler = () => {
 
     const btnSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        setTextToPost({ username: '', message: '' });
+        if(textToPost.message.trim() !== '' && textToPost.username.trim() !== ''){
+            setTextToPost({ username: '', message: '' });
 
-        const data = new URLSearchParams();
-        data.set('message', textToPost.message);
-        data.set('author', textToPost.username);
+            const data = new URLSearchParams();
+            data.set('message', textToPost.message);
+            data.set('author', textToPost.username);
 
-        await fetch(url, {
-            method: 'post',
-            body: data,
-        });
-        if(textToPost.message.length !== 0 && textToPost.username.length !== 0){
-            setShowAlert(true);
-            setTimeout(() => {
-                setShowAlert(false);
-            }, 3000);
+            await fetch(url, {
+                method: 'post',
+                body: data,
+            });
+
+                setShowAlert(true);
+                setTimeout(() => {
+                    setShowAlert(false);
+                }, 3000);
         }
 
     };
